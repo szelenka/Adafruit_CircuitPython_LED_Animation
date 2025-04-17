@@ -27,7 +27,7 @@ Implementation Notes
 """
 
 from adafruit_led_animation.animation import Animation
-from adafruit_led_animation.color import BLACK, calculate_intensity
+from adafruit_led_animation.color import BLACK, calculate_intensity_mixer
 
 
 class Comet(Animation):
@@ -91,7 +91,7 @@ class Comet(Animation):
         self._comet_colors = [self._background_color]
         for n in range(self._tail_length):
             self._comet_colors.append(
-                calculate_intensity(color, n * self._color_step + 0.05)
+                calculate_intensity_mixer(color, self._background_color, n * self._color_step + 0.05)
             )
         self._computed_color = color
 
