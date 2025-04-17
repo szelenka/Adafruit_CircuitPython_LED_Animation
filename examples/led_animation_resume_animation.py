@@ -23,7 +23,7 @@ pixel_num = 32
 # Update to matchpin connected to button that connect logic high when pushed
 button_pin = board.D3
 
-pixels = neopixel.NeoPixel(pixel_pin, pixel_num, brightness=0.5, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, pixel_num)
 button = DigitalInOut(button_pin)
 button.direction = Direction.INPUT
 button.pull = Pull.UP

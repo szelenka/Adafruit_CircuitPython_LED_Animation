@@ -25,10 +25,9 @@ from adafruit_led_animation.color import PINK, GREEN, RED, BLUE
 pixel_pin = board.D5
 # Update to match the number of NeoPixels you have connected
 pixel_num = 30
-brightness = 0.3
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, pixel_num, brightness=brightness, auto_write=False
+    pixel_pin, pixel_num
 )
 
 # colors default to RAINBOW as defined in color.py

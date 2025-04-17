@@ -21,7 +21,7 @@ pixel_pin = board.A3
 # Update to match the number of NeoPixels you have connected
 pixel_num = 30
 
-pixels = neopixel.NeoPixel(pixel_pin, pixel_num, brightness=0.5, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, pixel_num)
 
 comet = Comet(pixels, speed=0.02, color=JADE, tail_length=10, bounce=True)
 

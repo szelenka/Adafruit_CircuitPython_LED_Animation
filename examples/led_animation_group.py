@@ -23,8 +23,7 @@ from adafruit_led_animation.sequence import AnimationSequence
 
 from adafruit_led_animation import color
 
-strip_pixels = neopixel.NeoPixel(board.A1, 30, brightness=0.5, auto_write=False)
-cp.pixels.brightness = 0.5
+strip_pixels = neopixel.NeoPixel(board.A1, 30)
 
 animations = AnimationSequence(
     # Synchronized to 0.5 seconds. Ignores the second animation setting of 3 seconds.

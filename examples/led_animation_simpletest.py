@@ -17,7 +17,7 @@ pixel_pin = board.D6
 # Update to match the number of NeoPixels you have connected
 pixel_num = 32
 
-pixels = neopixel.NeoPixel(pixel_pin, pixel_num, brightness=0.5, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, pixel_num)
 
 blink = Blink(pixels, speed=0.5, color=RED)
 

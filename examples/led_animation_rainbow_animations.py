@@ -24,7 +24,7 @@ pixel_pin = board.D6
 # Update to match the number of NeoPixels you have connected
 pixel_num = 32
 
-pixels = neopixel.NeoPixel(pixel_pin, pixel_num, brightness=0.5, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, pixel_num)
 
 rainbow = Rainbow(pixels, speed=0.1, period=2)
 rainbow_chase = RainbowChase(pixels, speed=0.1, size=5, spacing=3)

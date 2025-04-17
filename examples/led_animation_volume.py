@@ -23,7 +23,7 @@ with open(mp3file, "rb") as mp3:
     decoder = MP3Decoder(mp3)
     audio = AudioOut(board.SPEAKER)
 
-    strip_pixels = neopixel.NeoPixel(board.D4, 30, brightness=0.1, auto_write=False)
+    strip_pixels = neopixel.NeoPixel(board.D4, 30)
     volume_anim = volume.Volume(strip_pixels, 0.3, (0, 255, 0), decoder, 400)
 
     while True:

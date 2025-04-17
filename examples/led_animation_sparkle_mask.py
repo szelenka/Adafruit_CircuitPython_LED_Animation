@@ -35,7 +35,7 @@ unheart_mask = [0,           3,  4,         7,
                 48, 49, 50,        53, 54, 55,
                 56, 57, 58, 59, 60, 61, 62, 63]
 # fmt: on
-pixels = neopixel.NeoPixel(pixel_pin, pixel_num, brightness=0.9, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, pixel_num)
 
 animations = AnimationSequence(
     Sparkle(pixels, speed=0.05, color=JADE, num_sparkles=1, mask=unheart_mask),
