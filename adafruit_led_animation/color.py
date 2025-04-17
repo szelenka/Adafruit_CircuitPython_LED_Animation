@@ -24,7 +24,37 @@ Implementation Notes
   https://circuitpython.org/downloads
 """
 # Makes colorwheel() available.
-from rainbowio import colorwheel  # pylint: disable=unused-import
+def colorwheel(pos):
+    """
+    Generate a color from a position value on a color wheel.
+    This function maps an input position (0-255) to a color on a
+    virtual RGB color wheel. The colors transition smoothly through
+    red, green, and blue.
+    :param float pos: Position on the color wheel (0-255). Values outside
+                    this range will be wrapped around.
+    :return: color
+    """
+
+    # ref:
+    # https://github.com/adafruit/circuitpython/blob/main/shared-module/rainbowio/__init__.c
+    pos = pos - ((pos // 256) * 256)
+    shift1 = 0
+    shift2 = 0
+    if pos < 85:
+        shift1 = 8
+        shift2 = 16
+    elif pos < 170:
+        pos -= 85
+        shift1 = 0
+        shift2 = 8
+    else:
+        pos -= 170
+        shift1 = 16
+        shift2 = 0
+    pos_new = (int)(pos * 3)
+    pos_new = pos_new if (pos_new < 256) else 255
+    return (pos_new << shift1) | ((255 - pos_new) << shift2)
+    
 
 RED = (255, 0, 0)
 """Red."""
@@ -108,4 +138,42 @@ def calculate_intensity(color, intensity=1.0):
         int(color[1] * intensity),
         int(color[2] * intensity),
         int(color[3] * intensity),
+    )
+
+
+def calculate_intensity_mixer(color1, color2, intensity=1.0):
+    """
+    Takes a RGB[W] color tuple and adjusts the intensity.
+    :param float intensity:
+    :param color1: color value (tuple, list or int)
+    :param color2: color value (tuple, list or int)
+    :return: color
+    """
+    # Note: This code intentionally avoids list comprehensions and intermediate variables
+    # for an approximately 2x performance gain.
+    if isinstance(color1, int):
+        return (
+            (int(((color1 & 0xFF0000) * intensity) + ((color2 & 0xFF0000) * (1 - intensity))) & 0xFF0000)
+            | (int(((color1 & 0xFF00) * intensity) + ((color2 & 0xFF00) * (1 - intensity))) & 0xFF00)
+            | (int(((color1 & 0xFF) * intensity) + ((color2 & 0xFF) * (1 - intensity))) & 0xFF)
+        )
+
+    if len(color1) == 3:
+        return (
+            int((color1[0] * intensity) + (color2[0] * (1 - intensity))),
+            int((color1[1] * intensity) + (color2[1] * (1 - intensity))),
+            int((color1[2] * intensity) + (color2[2] * (1 - intensity))),
+        )
+    if len(color1) == 4 and isinstance(color1[3], float):
+        return (
+            int((color1[0] * intensity) + (color2[0] * (1 - intensity))),
+            int((color1[1] * intensity) + (color2[1] * (1 - intensity))),
+            int((color1[2] * intensity) + (color2[2] * (1 - intensity))),
+            color1[3],
+        )
+    return (
+        int((color1[0] * intensity) + (color2[0] * (1 - intensity))),
+        int((color1[1] * intensity) + (color2[1] * (1 - intensity))),
+        int((color1[2] * intensity) + (color2[2] * (1 - intensity))),
+        int((color1[3] * intensity) + (color2[3] * (1 - intensity))),
     )
