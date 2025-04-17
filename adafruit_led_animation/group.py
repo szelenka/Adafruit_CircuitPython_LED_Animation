@@ -57,7 +57,7 @@ class AnimationGroup:
 
             import adafruit_led_animation.color as color
 
-            strip_pixels = neopixel.NeoPixel(board.A1, 30, brightness=0.5, auto_write=False)
+            strip_pixels = neopixel.NeoPixel(board.A1, 30)
             cp.pixels.brightness = 0.5
 
             animations = AnimationSequence(
@@ -146,7 +146,7 @@ class AnimationGroup:
                 for member in self._members:
                     if isinstance(member, Animation):
                         if last_strip != member.pixel_object:
-                            member.pixel_object.show()
+                            member.pixel_object.write()
                             last_strip = member.pixel_object
                     else:
                         member.show()

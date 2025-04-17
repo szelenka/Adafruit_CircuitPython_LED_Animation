@@ -56,7 +56,7 @@ class PixelGrid:
         import time
         from adafruit_led_animation.grid import PixelGrid, VERTICAL
 
-        pixels = neopixel.NeoPixel(board.D11, 256, auto_write=False)
+        pixels = neopixel.NeoPixel(board.D11, 256)
 
         grid = PixelGrid(pixels, 32, 8, orientation=VERTICAL, alternating=True)
 
@@ -64,7 +64,7 @@ class PixelGrid:
             for y in range(8):
                 # pg[x, y] = (y*32) + x
                 pg[x][y] = ((y*32) + x) << 8
-        pg.show()
+        pg.write()
 
     """
 
@@ -130,9 +130,6 @@ class PixelGrid:
         else:
             raise ValueError("PixelGrid assignment needs a sub-index or x,y coordinate")
 
-        if self._pixels.auto_write:
-            self.show()
-
     def __getitem__(self, index):
         if isinstance(index, slice):
             raise NotImplementedError("PixelGrid does not support slices")
@@ -144,18 +141,6 @@ class PixelGrid:
 
     def __len__(self):
         return self.n
-
-    @property
-    def brightness(self):
-        """
-        brightness from the underlying strip.
-        """
-        return self._pixels.brightness
-
-    @brightness.setter
-    def brightness(self, brightness):
-        # pylint: disable=attribute-defined-outside-init
-        self._pixels.brightness = min(max(brightness, 0.0), 1.0)
 
     def fill(self, color):
         """
@@ -170,18 +155,7 @@ class PixelGrid:
         """
         Shows the pixels on the underlying strip.
         """
-        self._pixels.show()
-
-    @property
-    def auto_write(self):
-        """
-        auto_write from the underlying strip.
-        """
-        return self._pixels.auto_write
-
-    @auto_write.setter
-    def auto_write(self, value):
-        self._pixels.auto_write = value
+        self._pixels.write()
 
 
 def reverse_x_mapper(width, mapper):

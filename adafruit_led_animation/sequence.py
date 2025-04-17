@@ -61,7 +61,7 @@ class AnimationSequence:
         import adafruit_led_animation.animation.blink as blink_animation
         import adafruit_led_animation.color as color
 
-        strip_pixels = neopixel.NeoPixel(board.A1, 30, brightness=1, auto_write=False)
+        strip_pixels = neopixel.NeoPixel(board.A1, 30)
 
         blink = blink_animation.Blink(strip_pixels, 0.2, color.RED)
         comet = comet_animation.Comet(strip_pixels, 0.1, color.BLUE)
@@ -283,7 +283,7 @@ class AnimateOnce(AnimationSequence):
         from adafruit_led_animation.color import BLUE, RED
         from adafruit_led_animation.sequence import AnimateOnce
 
-        strip_pixels = neopixel.NeoPixel(board.A1, 30, brightness=0.5, auto_write=False)
+        strip_pixels = neopixel.NeoPixel(board.A1, 30)
 
         comet = Comet(strip_pixels, 0.01, color=BLUE, bounce=False)
         pulse = Pulse(strip_pixels, 0.01, color=RED, period=2)

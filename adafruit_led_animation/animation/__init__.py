@@ -41,7 +41,6 @@ class Animation:
     # pylint: disable=too-many-arguments
     def __init__(self, pixel_object, speed, color, peers=None, paused=False, name=None):
         self.pixel_object = pixel_object
-        self.pixel_object.auto_write = False
         self._peers = [self] + peers if peers is not None else [self]
         self._speed_ms = 0
         self._color = None
@@ -116,7 +115,7 @@ class Animation:
         """
         Displays the updated pixels.  Called during animates with changes.
         """
-        self.pixel_object.show()
+        self.pixel_object.write()
 
     @property
     def peers(self):
@@ -154,7 +153,7 @@ class Animation:
         Fills the pixel object with a color.
         """
         self.pixel_object.fill(color)
-        self.pixel_object.show()
+        self.pixel_object.write()
 
     @property
     def color(self):
